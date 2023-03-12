@@ -8,5 +8,12 @@
         public int AlbumId { get; set; }
         public Album Album { get; set; }
         public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
+
+        public Song(string title, int durationSeconds, int albumId)
+        {
+            Title = title;
+            DurationSeconds = durationSeconds;
+            AlbumId = albumId;
+        }
     }
 }

@@ -8,5 +8,11 @@
 
         public Artist Artist { get; set; }
         public Song Song { get; set; }
+
+        public SongContributor(int artistId, int songId)
+        {
+            ArtistId = artistId;
+            SongId = songId;
+        }
     }
 }

@@ -9,5 +9,12 @@
 
         public virtual Playlist Playlist { get; set; }
         public virtual Song Song { get; set; }
+
+        public PlaylistSong(int songId, int playlistId)
+        {
+            SongId = songId;
+            PlaylistId = playlistId;
+            TimeAdded = DateTime.Now;
+        }
     }
 }

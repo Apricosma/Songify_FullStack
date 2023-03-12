@@ -6,5 +6,10 @@
         public string Title { get; set; }
 
         public ICollection<Song> Songs { get; set; }
+
+        public Album(string title) 
+        {
+            Title = title;
+        }
     }
 }

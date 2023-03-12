@@ -8,5 +8,11 @@
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
         public User User { get; set; }
+
+        public Playlist(string name, int userId)
+        {
+            Name = name;
+            UserId = userId;
+        }
     }
 }

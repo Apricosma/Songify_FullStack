@@ -8,5 +8,11 @@
 
         public User User { get; set; }
         public Song Song { get; set; }
+
+        public LibrarySong(int userId, int songId) 
+        {
+            UserId = userId;
+            SongId = songId;
+        }
     }
 }
