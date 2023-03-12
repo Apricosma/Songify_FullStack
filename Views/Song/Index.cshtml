@@ -7,9 +7,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -41,14 +38,18 @@
                 @Html.DisplayFor(modelItem => item.Album.Title)
             </td>
             <td>
+                @*Html.DisplayFor(modelItem => item.SongContributors.FirstOrDefault().Artist.Name)*@
                 @*concatenates artists together*@
-                @{string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));}
-                @Html.DisplayFor(modelItem => artists)
+                @{string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));}             
+                @artists
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <select id="showPlaylists" asp-items="ViewBag.playlists">
+                    <option selected="selected">Add To Playlist</option>
+                </select>
+
+
             </td>
         </tr>
 }
