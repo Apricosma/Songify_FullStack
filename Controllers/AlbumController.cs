@@ -41,7 +41,7 @@ namespace Songify_FullStack.Controllers
                 // song already exists in selected playlist...
                 ViewBag.ErrorMessage = "Song already exists in playlist";
 
-                return RedirectToAction("Index", "Song");
+                return RedirectToAction("Details", "Album", new { id = albumId });
             }
 
             PlaylistSong playlistSong = new PlaylistSong(songId, playlistId);
@@ -49,6 +49,7 @@ namespace Songify_FullStack.Controllers
 
             await _context.SaveChangesAsync();
 
+            // return to the same album
             return RedirectToAction("Details", "Album", new { id = albumId });
         }
 
