@@ -50,11 +50,12 @@
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </td>
                 <td>
-                    <form method="post" asp-controller="Song" asp-action="AddSongToPlaylist">
+                    <form method="post" asp-controller="Album" asp-action="AddSongToPlaylist">
                         <select name="playlistId" asp-items="ViewBag.playlists">
                             <option selected="selected">Playlists</option>
                         </select>
                         <input type="hidden" name="songId" value="@item.Id">
+                        <input type="hidden" name="albumId" value="@item.Album.Id">
                         <button type="submit">Add To Playlist</button>
                     </form>
                 </td>
