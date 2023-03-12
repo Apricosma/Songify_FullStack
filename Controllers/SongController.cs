@@ -22,7 +22,12 @@ namespace Songify_FullStack.Controllers
         // GET: Song
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Song.ToListAsync());
+            //var songifyContext = _context.Song.Include(s => s.Album);
+            var songifyContext = _context.Song
+                .Include(s => s.Album)
+                .Include(s => s.SongContributors)
+                .ThenInclude(s => s.Artist);
+            return View(await songifyContext.ToListAsync());
         }
 
         // GET: Song/Details/5
@@ -34,6 +39,7 @@ namespace Songify_FullStack.Controllers
             }
 
             var song = await _context.Song
+                .Include(s => s.Album)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (song == null)
             {
@@ -46,6 +52,7 @@ namespace Songify_FullStack.Controllers
         // GET: Song/Create
         public IActionResult Create()
         {
+            ViewData["AlbumId"] = new SelectList(_context.Album, "Id", "Id");
             return View();
         }
 
@@ -62,6 +69,7 @@ namespace Songify_FullStack.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AlbumId"] = new SelectList(_context.Album, "Id", "Id", song.AlbumId);
             return View(song);
         }
 
@@ -78,6 +86,7 @@ namespace Songify_FullStack.Controllers
             {
                 return NotFound();
             }
+            ViewData["AlbumId"] = new SelectList(_context.Album, "Id", "Id", song.AlbumId);
             return View(song);
         }
 
@@ -113,6 +122,7 @@ namespace Songify_FullStack.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AlbumId"] = new SelectList(_context.Album, "Id", "Id", song.AlbumId);
             return View(song);
         }
 
@@ -125,6 +135,7 @@ namespace Songify_FullStack.Controllers
             }
 
             var song = await _context.Song
+                .Include(s => s.Album)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (song == null)
             {
