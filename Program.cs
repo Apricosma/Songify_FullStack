@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Songify_FullStack.Data;
+using Songify_FullStack.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SongifyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SongifyContext") ?? throw new InvalidOperationException("Connection string 'SongifyContext' not found.")));
@@ -10,6 +12,11 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await Seed.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
