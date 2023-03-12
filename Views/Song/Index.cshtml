@@ -48,12 +48,18 @@
             </td>
             <td>
                 <form method="post" asp-controller="Song" asp-action="AddSongToPlaylist">
-                    <select name="playlistId" asp-items="ViewBag.playlists">
+                    <select name="playlistId" asp-items="ViewBag.Playlists">
                         <option selected="selected">Playlists</option>
                     </select>
                     <input type="hidden" name="songId" value="@item.Id">
                     <button type="submit">Add To Playlist</button>
                 </form>
+            </td>
+            <td>
+                    @if(ViewBag.ErrorMessage != null)
+                    {
+                        <p style="color: red">@ViewBag.ErrorMessage</p>
+                    }
             </td>
         </tr>
 }

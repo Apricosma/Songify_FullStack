@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Songify_FullStack.Models.Song>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.FirstOrDefault().Album.Title</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationSeconds)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Album)
+            </th>
+            <th>
+                <p>Artist</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DurationSeconds)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Album.Title)
+                </td>
+                <td>
+                    @*Html.DisplayFor(modelItem => item.SongContributors.FirstOrDefault().Artist.Name)*@
+                    @*concatenates artists together*@
+                    @{
+                        string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));
+                    }
+                    @artists
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+                <td>
+                    <form method="post" asp-controller="Song" asp-action="AddSongToPlaylist">
+                        <select name="playlistId" asp-items="ViewBag.playlists">
+                            <option selected="selected">Playlists</option>
+                        </select>
+                        <input type="hidden" name="songId" value="@item.Id">
+                        <button type="submit">Add To Playlist</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

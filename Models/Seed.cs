@@ -11,8 +11,8 @@ namespace Songify_FullStack.Models
 
             // delete and re-seed
             // !!!!!!!!!!!!! REMOVE WHEN FINISHED !!!!!!!!!!!!!!!!!
-            //context.Database.EnsureDeleted();
-            //context.Database.Migrate();
+            context.Database.EnsureDeleted();
+            context.Database.Migrate();
 
             User UserOne = new User("Apricosma");
             if (!context.User.Any())

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.EntityFrameworkCore;
 using Songify_FullStack.Data;
 using Songify_FullStack.Models;
@@ -41,6 +43,14 @@ namespace Songify_FullStack.Controllers
             if (playlist == null || song == null)
             {
                 return NotFound();
+            }
+
+            if(_context.PlaylistSong.Any(ps => ps.PlaylistId == playlistId && ps.SongId == songId))
+            {
+                // song already exists in selected playlist...
+                ViewBag.ErrorMessage = "Song already exists in playlist";
+
+                return RedirectToAction("Index", "Song");
             }
 
             PlaylistSong playlistSong = new PlaylistSong(songId, playlistId);
