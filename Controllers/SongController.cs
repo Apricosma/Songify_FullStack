@@ -32,6 +32,25 @@ namespace Songify_FullStack.Controllers
             return View(await songifyContext.ToListAsync());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddSongToPlaylist(int playlistId, int songId)
+        {
+            // make sure they're in the db
+            Playlist playlist = await _context.Playlist.FindAsync(playlistId);
+            Song song = await _context.Song.FindAsync(songId);
+            if (playlist == null || song == null)
+            {
+                return NotFound();
+            }
+
+            PlaylistSong playlistSong = new PlaylistSong(songId, playlistId);
+            _context.PlaylistSong.Add(playlistSong);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Song");
+        }
+
         // GET: Song/Details/5
         public async Task<IActionResult> Details(int? id)
         {
