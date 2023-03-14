@@ -14,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DurationSeconds)
+                Duration
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Album)
@@ -33,7 +33,7 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DurationSeconds)
+                    @string.Format("{0:m\\:ss}", TimeSpan.FromSeconds(item.DurationSeconds))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Album.Title)
@@ -56,7 +56,7 @@
                         </select>
                         <input type="hidden" name="songId" value="@item.Id">
                         <input type="hidden" name="albumId" value="@item.Album.Id">
-                        <button type="submit">Add To Playlist</button>
+                        <button class="btn btn-primary" type="submit">Add To Playlist</button>
                     </form>
                 </td>
             </tr>

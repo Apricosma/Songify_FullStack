@@ -16,7 +16,15 @@
     <div class="list-group">
         @foreach(Album album in Model.SongContributors.Select(sc => sc.Song.Album).Distinct())
         {
-            <a href="@Url.Action("Details", "Album", new {id = album.Id})" class="list-group-item list-group-item-action w-25 text-xl-center m-1" style="height: 100px"><h4>@album.Title</h4></a>
+            <a href="@Url.Action("Details", "Album", new {id = album.Id})" 
+                class="list-group-item list-group-item-action w-25 text-xl-center m-1"
+                style="height: 100px">
+
+                <h4>@album.Title</h4>
+                @*doesnt work if there are multiple contributors for the song,
+                cant figure out how to do just the songs*@
+                <p>Songs: @Model.SongContributors.Count()</p>
+            </a>
         }   
     </div>
 </div>

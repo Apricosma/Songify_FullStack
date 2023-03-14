@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Songify_FullStack.Models.Playlist>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@foreach (var playlist in Model)
+{
+    <a href="@Url.Action("Details", "Playlist", new {id = playlist.Id})" 
+        class="list-group-item list-group-item-action w-25 text-xl-center m-1"
+        style="height: 100px">
+
+        <h4>@playlist.Name</h4>
+    </a>
+}  
