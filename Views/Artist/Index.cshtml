@@ -7,25 +7,26 @@
 
 <h1>Artists</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 p-2">
+            <a href="@Url.Action("Details", "Artist", new{id = item.Id})" class="text-decoration-none">
+                <div class="card" style="height: 195px; width: 295px; margin-bottom: 8px">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h2 class="card-title text-xl-center" style="color: black;">@item.Name</h2>
+                        <h3 class="text-xl-center" style="color: black;">Albums: @item.Albums.Count()</h3>
+
+                    </div>
+                </div>
+                <style>
+                    .card:hover {
+                        background-color: #fbfbfb;
+                        box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+                        transform: translateY(-2px);
+                    }
+                </style>
+            </a>
+        </div>
+    }
+</div>

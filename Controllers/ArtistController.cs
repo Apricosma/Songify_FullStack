@@ -22,7 +22,15 @@ namespace Songify_FullStack.Controllers
         // GET: Artist
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Artist.ToListAsync());
+            var artists = await _context.Artist.ToListAsync();
+
+            foreach (var artist in artists)
+            {
+                artist.Albums = await _context.Album
+                    .Where(a => a.Id == artist.Id)
+                    .ToListAsync();
+            }
+            return View(artists);
         }
 
         // GET: Artist/Details/5
@@ -42,6 +50,8 @@ namespace Songify_FullStack.Controllers
             {
                 return NotFound();
             }
+
+
 
             return View(artist);
         }
