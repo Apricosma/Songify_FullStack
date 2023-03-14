@@ -11,7 +11,6 @@ namespace Songify_FullStack.Models
             var context = new SongifyContext(serviceProvider.GetRequiredService<DbContextOptions<SongifyContext>>());
 
             // delete and re-seed
-            // !!!!!!!!!!!!! REMOVE WHEN FINISHED !!!!!!!!!!!!!!!!!
             context.Database.EnsureDeleted();
             context.Database.Migrate();
 
@@ -26,6 +25,7 @@ namespace Songify_FullStack.Models
             {
                  new Playlist("Favorite Songs", 1),
                  new Playlist("Jams", 1),
+                 new Playlist("Geoxor tracks", 1)
             };
 
             if (!context.Playlist.Any())
@@ -195,53 +195,6 @@ namespace Songify_FullStack.Models
                 return AllSongContibutors;
             }
 
-            //static SongContributor[] InitializeSongContributors()
-            //{
-            //    SongContributor[] AllSongContibutors = new SongContributor[57];
-            //    int SCindex = 0;
-
-            //    int[] crystallizedSongIds = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            //    for (int i = 0; i < crystallizedSongIds.Length; i++)
-            //    {
-            //        AllSongContibutors[SCindex] = new SongContributor(1, crystallizedSongIds[i]);
-            //        SCindex++;
-            //    }
-
-            //    int[] hanahataSongIds = { 10, 11, 12, 13, 14, 15, 16, 17 };
-            //    for (int i = 0; i < hanahataSongIds.Length; i++)
-            //    {
-            //        AllSongContibutors[SCindex] = new SongContributor(2, hanahataSongIds[i]);
-            //        SCindex++;
-            //    }
-
-            //    int[] figgieSongIds = { 18, 19, 20, 21 };
-            //    for (int i = 0; i < figgieSongIds.Length; i++)
-            //    {
-            //        AllSongContibutors[SCindex] = new SongContributor(3, figgieSongIds[i]);
-            //        SCindex++;
-            //    }
-
-            //    int[] geoxorSongIds = { 22, 23, 24, 25, 26, 27, 28, 29, 30 };
-            //    for (int i = 0; i < geoxorSongIds.Length; i++)
-            //    {
-            //        AllSongContibutors[SCindex] = new SongContributor(4, geoxorSongIds[i]);
-            //        SCindex++;
-            //    }
-
-            //    int[] UUFOSongIds = new int[27];
-            //    for (int i = 0; i < UUFOSongIds.Length; i++)
-            //    {
-            //        UUFOSongIds[i] = i + 31;
-            //    }
-            //    for (int i = 0; i < UUFOSongIds.Length; i++)
-            //    {
-            //        AllSongContibutors[SCindex] = new SongContributor(1, UUFOSongIds[i]);
-            //        SCindex++;
-            //    }
-
-            //    return AllSongContibutors;
-            //}
-
             if (!context.SongContributor.Any())
             {
                 List<SongContributor> list = InitializeSongContributors();
@@ -252,11 +205,41 @@ namespace Songify_FullStack.Models
 
             }
             await context.SaveChangesAsync();
+            PlaylistSong[] PlaylistSongs = new PlaylistSong[]
+            {
+                new PlaylistSong(1, 1),
+                new PlaylistSong(13, 1),
+                new PlaylistSong(21, 1),
+                new PlaylistSong(6,  1),
+                new PlaylistSong(33, 1),
+                new PlaylistSong(40, 1),
+                new PlaylistSong(8,  1),
+                new PlaylistSong(25, 1),
+                new PlaylistSong(27, 1),
+                new PlaylistSong(9,  1),
+                new PlaylistSong(14, 1),
+                new PlaylistSong(28, 2),
+                new PlaylistSong(33, 2),
+                new PlaylistSong(38, 2),
+                new PlaylistSong(50, 2),
+                new PlaylistSong(56, 2),
+                new PlaylistSong(3,  2),
+                new PlaylistSong(5,  2),
+                new PlaylistSong(22, 3),
+                new PlaylistSong(25, 3),
+                new PlaylistSong(26, 3),
+                new PlaylistSong(28, 3),
+                new PlaylistSong(29, 3),
+                new PlaylistSong(30, 3),
+                new PlaylistSong(24, 3),
+            };
 
-            PlaylistSong playlistSongOne = new PlaylistSong(1, 1);
             if (!context.PlaylistSong.Any())
             {
-                context.PlaylistSong.Add(playlistSongOne);
+                foreach(PlaylistSong playlistSong in PlaylistSongs) 
+                {
+                    context.Add(playlistSong);
+                }
             }
             await context.SaveChangesAsync();
 

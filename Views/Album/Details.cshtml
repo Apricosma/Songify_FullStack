@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.Album)
             </th>
             <th>
-                <p>Artist</p>
+                Artist
             </th>
             <th></th>
         </tr>
@@ -39,7 +39,6 @@
                     @Html.DisplayFor(modelItem => item.Album.Title)
                 </td>
                 <td>
-                    @*Html.DisplayFor(modelItem => item.SongContributors.FirstOrDefault().Artist.Name)*@
                     @*concatenates artists together*@
                     @{
                         string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));

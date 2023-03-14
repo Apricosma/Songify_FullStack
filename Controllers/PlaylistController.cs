@@ -22,7 +22,8 @@ namespace Songify_FullStack.Controllers
         // GET: Playlist
         public async Task<IActionResult> Index()
         {
-            var songifyContext = _context.Playlist.Include(p => p.User);
+            var songifyContext = _context.Playlist.Include(p => p.User)
+                .Include(s => s.PlaylistSongs);
             return View(await songifyContext.ToListAsync());
         }
 
