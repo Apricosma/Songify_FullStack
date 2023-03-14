@@ -51,8 +51,6 @@ namespace Songify_FullStack.Controllers
                 return NotFound();
             }
 
-
-
             return View(artist);
         }
 
