@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<Songify_FullStack.Models.Song>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Songs"] = "Songs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Songs</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -17,14 +14,15 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DurationSeconds)
+                Duration
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Album)
             </th>
             <th>
-                <p>Artist</p>
+                Artist
             </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -35,20 +33,27 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DurationSeconds)
+                @string.Format("{0:m\\:ss}", TimeSpan.FromSeconds(item.DurationSeconds))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Album.Title)
             </td>
             <td>
                 @*concatenates artists together*@
-                @{string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));}
-                @Html.DisplayFor(modelItem => artists)
+                @{string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));}             
+                @artists
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+            <td>
+                <form method="post" asp-controller="Song" asp-action="AddSongToPlaylist">
+                    <select name="playlistId" asp-items="ViewBag.Playlists">
+                        <option selected="selected">Playlists</option>
+                    </select>
+                    <input type="hidden" name="songId" value="@item.Id">
+                    <button class="btn btn-primary" type="submit">Add To Playlist</button>
+                </form>
             </td>
         </tr>
 }

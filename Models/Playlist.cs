@@ -1,4 +1,6 @@
-﻿namespace Songify_FullStack.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+
+namespace Songify_FullStack.Models
 {
     public class Playlist
     {
@@ -7,7 +9,12 @@
         public int UserId { get; set; }
 
         public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
-        public User User { get; set; }
+        public User? User { get; set; }
+
+        public Playlist()
+        {
+
+        }
 
         public Playlist(string name, int userId)
         {

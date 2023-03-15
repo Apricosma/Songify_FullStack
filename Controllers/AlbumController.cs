@@ -3,39 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.EntityFrameworkCore;
 using Songify_FullStack.Data;
 using Songify_FullStack.Models;
 
 namespace Songify_FullStack.Controllers
 {
-    public class SongController : Controller
+    public class AlbumController : Controller
     {
         private readonly SongifyContext _context;
 
-        public SongController(SongifyContext context)
+        public AlbumController(SongifyContext context)
         {
             _context = context;
         }
 
-        // GET: Song
+        // GET: Album
         public async Task<IActionResult> Index()
         {
-            var songifyContext = _context.Song
-                .Include(s => s.Album)
-                .Include(s => s.SongContributors)
-                .ThenInclude(s => s.Artist);
+            var albums = await _context.Album
+                .Include(s => s.Songs)
+                .ThenInclude(sc => sc.SongContributors)
+                .ThenInclude(a => a.Artist)
+                .ToListAsync();
 
-            var playlists = await _context.Playlist.ToListAsync();
-            ViewBag.Playlists = new SelectList(playlists, "Id", "Name");
-            return View(await songifyContext.ToListAsync());
+            return View(albums);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSongToPlaylist(int playlistId, int songId)
+        public async Task<IActionResult> AddSongToPlaylist(int playlistId, int songId, int albumId)
         {
             // make sure they're in the db
             Playlist playlist = await _context.Playlist.FindAsync(playlistId);
@@ -45,12 +42,12 @@ namespace Songify_FullStack.Controllers
                 return NotFound();
             }
 
-            if(_context.PlaylistSong.Any(ps => ps.PlaylistId == playlistId && ps.SongId == songId))
+            if (_context.PlaylistSong.Any(ps => ps.PlaylistId == playlistId && ps.SongId == songId))
             {
                 // song already exists in selected playlist...
                 ViewBag.ErrorMessage = "Song already exists in playlist";
 
-                return RedirectToAction("Index", "Song");
+                return RedirectToAction("Details", "Album", new { id = albumId });
             }
 
             PlaylistSong playlistSong = new PlaylistSong(songId, playlistId);
@@ -58,31 +55,40 @@ namespace Songify_FullStack.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Song");
+            // return to the same album
+            return RedirectToAction("Details", "Album", new { id = albumId });
         }
 
-        // GET: Song/Details/5
+        // GET: Album/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Song == null)
+            if (id == null || _context.Album == null)
             {
                 return NotFound();
             }
 
-            var song = await _context.Song
-                .Include(s => s.Album)
+            var album = await _context.Album
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (song == null)
+            if (album == null)
             {
                 return NotFound();
             }
 
-            return View(song);
+            var albumDetailContext = _context.Song
+            .Include(s => s.Album)
+            .Include(s => s.SongContributors)
+            .ThenInclude(s => s.Artist)
+            .Where(a => a.Album.Id == id);
+
+            var playlists = await _context.Playlist.ToListAsync();
+            ViewBag.Playlists = new SelectList(playlists, "Id", "Name");
+
+            return View(albumDetailContext);
         }
 
-        private bool SongExists(int id)
+        private bool AlbumExists(int id)
         {
-          return _context.Song.Any(e => e.Id == id);
+          return _context.Album.Any(e => e.Id == id);
         }
     }
 }
