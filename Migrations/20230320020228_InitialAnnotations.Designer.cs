@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Songify_FullStack.Data;
 
@@ -11,9 +12,11 @@ using Songify_FullStack.Data;
 namespace Songify_FullStack.Migrations
 {
     [DbContext(typeof(SongifyContext))]
-    partial class SongifyContextModelSnapshot : ModelSnapshot
+    [Migration("20230320020228_InitialAnnotations")]
+    partial class InitialAnnotations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
