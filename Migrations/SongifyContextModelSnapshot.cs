@@ -37,7 +37,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Album");
+                    b.ToTable("Album", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Artist", b =>
@@ -55,7 +55,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artist");
+                    b.ToTable("Artist", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.LibrarySong", b =>
@@ -78,7 +78,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LibrarySong");
+                    b.ToTable("LibrarySong", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Playlist", b =>
@@ -101,7 +101,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlist");
+                    b.ToTable("Playlist", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.PlaylistSong", b =>
@@ -127,7 +127,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistSong");
+                    b.ToTable("PlaylistSong", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Song", b =>
@@ -153,7 +153,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("AlbumId");
 
-                    b.ToTable("Song");
+                    b.ToTable("Song", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.SongContributor", b =>
@@ -176,7 +176,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("SongContributor");
+                    b.ToTable("SongContributor", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.User", b =>
@@ -193,7 +193,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.LibrarySong", b =>
