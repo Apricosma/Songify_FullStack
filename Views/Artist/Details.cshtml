@@ -14,7 +14,7 @@
     <h4>Albums</h4>
 
     <div class="list-group">
-        @foreach(Album album in Model.SongContributors.Select(sc => sc.Song.Album).Distinct())
+        @foreach(Album album in Model.Contributors.Select(sc => sc.Song.Album).Distinct())
         {
             <a href="@Url.Action("Details", "Album", new {id = album.Id})" 
                 class="list-group-item list-group-item-action w-25 text-xl-center m-1"

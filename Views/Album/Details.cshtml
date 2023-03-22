@@ -41,7 +41,7 @@
                 <td>
                     @*concatenates artists together*@
                     @{
-                        string artists = string.Join(", ", item.SongContributors.Select(sc => sc.Artist.Name));
+                        string artists = string.Join(", ", item.Contributors.Select(sc => sc.Artist.Name));
                     }
                     @artists
                 </td>

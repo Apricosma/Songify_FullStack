@@ -12,7 +12,7 @@ namespace Songify_FullStack.Models
         [StringLength(50, ErrorMessage = "Artist name cannot be more than 50 characters or less than 1", MinimumLength = 1)]
         public string Name { get; set; }
 
-        public ICollection<SongContributor> SongContributors { get; set; }
+        public ICollection<Contributor> Contributors { get; set; }
 
         [NotMapped]
         public List<Album> Albums { get; set; }

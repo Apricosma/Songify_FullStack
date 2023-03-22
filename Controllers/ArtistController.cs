@@ -23,7 +23,7 @@ namespace Songify_FullStack.Controllers
         public async Task<IActionResult> Index()
         {
             var artists = await _context.Artist
-                .Include(sc => sc.SongContributors)
+                .Include(sc => sc.Contributors)
                 .ThenInclude(s => s.Song)
                 .ThenInclude(a => a.Album)
                 .ToListAsync();
@@ -40,7 +40,7 @@ namespace Songify_FullStack.Controllers
             }
 
             var artist = await _context.Artist
-                .Include(a => a.SongContributors)
+                .Include(a => a.Contributors)
                 .ThenInclude(sc => sc.Song)
                 .ThenInclude(s => s.Album)
                 .FirstOrDefaultAsync(m => m.Id == id);

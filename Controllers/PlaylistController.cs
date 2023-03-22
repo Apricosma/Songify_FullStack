@@ -64,7 +64,7 @@ namespace Songify_FullStack.Controllers
                     .ThenInclude(s => s.Album)
                 .Include(p => p.PlaylistSongs)
                     .ThenInclude(ps => ps.Song)
-                    .ThenInclude(s => s.SongContributors)
+                    .ThenInclude(s => s.Contributors)
                     .ThenInclude(sc => sc.Artist)
                 .Where(p => p.Id == id).ToList();
 

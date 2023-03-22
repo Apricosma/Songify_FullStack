@@ -3,18 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Songify_FullStack.Models
 {
-    public class Album
+    public class Album : MediaType
     {
         [Key]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Album title is required")]
-        [StringLength(100, ErrorMessage = "Song name cannot be more than 100 characters, or less than 2", MinimumLength = 2)]
-        public string Title { get; set; }
-
         public ICollection<Song> Songs { get; set; }
 
-        public Album(string title) 
+        public Album(string title) : base(title)
         {
             Title = title;
         }

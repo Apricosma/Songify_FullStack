@@ -5,14 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Songify_FullStack.Models
 {
-    public class Song : GenericMedia
+    public class Song : MediaItem
     {
         [Required]
         [ForeignKey (nameof(Id))]
         public int AlbumId { get; set; }
         public virtual Album Album { get; set; }
+
         public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
-        public virtual ICollection<SongContributor> SongContributors { get; set; }
+        public virtual ICollection<Contributor> Contributors { get; set; }
 
         public Song() : base() 
         { 

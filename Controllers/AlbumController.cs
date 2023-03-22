@@ -24,7 +24,7 @@ namespace Songify_FullStack.Controllers
         {
             var albums = await _context.Album
                 .Include(s => s.Songs)
-                .ThenInclude(sc => sc.SongContributors)
+                .ThenInclude(sc => sc.Contributors)
                 .ThenInclude(a => a.Artist)
                 .ToListAsync();
 
@@ -76,7 +76,7 @@ namespace Songify_FullStack.Controllers
 
             var albumDetailContext = _context.Song
             .Include(s => s.Album)
-            .Include(s => s.SongContributors)
+            .Include(s => s.Contributors)
             .ThenInclude(s => s.Artist)
             .Where(a => a.Album.Id == id);
 

@@ -26,7 +26,7 @@ namespace Songify_FullStack.Controllers
         {
             var songifyContext = _context.Song
                 .Include(s => s.Album)
-                .Include(s => s.SongContributors)
+                .Include(s => s.Contributors)
                 .ThenInclude(s => s.Artist);
 
             var playlists = await _context.Playlist.ToListAsync();

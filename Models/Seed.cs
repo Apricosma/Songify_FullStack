@@ -154,32 +154,32 @@ namespace Songify_FullStack.Models
             }
             await context.SaveChangesAsync();
 
-            static List<SongContributor> InitializeSongContributors()
+            static List<Contributor> InitializeSongContributors()
             {
-                List<SongContributor> AllSongContibutors = new List<SongContributor>();
+                List<Contributor> AllSongContibutors = new List<Contributor>();
 
                 List<int> crystallizedSongIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
                 foreach (int id in crystallizedSongIds)
                 {
-                    AllSongContibutors.Add(new SongContributor(1, id));
+                    AllSongContibutors.Add(new Contributor(1, id, null));
                 }
 
                 List<int> hanahataSongIds = new List<int> { 10, 11, 12, 13, 14, 15, 16, 17 };
                 foreach (int id in hanahataSongIds)
                 {
-                    AllSongContibutors.Add(new SongContributor(2, id));
+                    AllSongContibutors.Add(new Contributor(2, id, null));
                 }
 
                 List<int> figgieSongIds = new List<int> { 18, 19, 20, 21 };
                 foreach (int id in figgieSongIds)
                 {
-                    AllSongContibutors.Add(new SongContributor(3, id));
+                    AllSongContibutors.Add(new Contributor(3, id, null));
                 }
 
                 List<int> geoxorSongIds = new List<int> { 22, 23, 24, 25, 26, 27, 28, 29, 30 };
                 foreach (int id in geoxorSongIds)
                 {
-                    AllSongContibutors.Add(new SongContributor(4, id));
+                    AllSongContibutors.Add(new Contributor(4, id, null));
                 }
 
                 List<int> UUFOSongIds = new List<int>();
@@ -189,16 +189,16 @@ namespace Songify_FullStack.Models
                 }
                 foreach (int id in UUFOSongIds)
                 {
-                    AllSongContibutors.Add(new SongContributor(1, id));
+                    AllSongContibutors.Add(new Contributor(1, id, null));
                 }
 
                 return AllSongContibutors;
             }
 
-            if (!context.SongContributor.Any())
+            if (!context.Contributor.Any())
             {
-                List<SongContributor> list = InitializeSongContributors();
-                foreach (SongContributor songContributor in list)
+                List<Contributor> list = InitializeSongContributors();
+                foreach (Contributor songContributor in list)
                 {
                     context.Add(songContributor);
                 }
@@ -250,6 +250,23 @@ namespace Songify_FullStack.Models
             }
             await context.SaveChangesAsync();
 
+            Podcast podcastOne = new Podcast("Testpodcast");
+            if (!context.Podcast.Any())
+            {
+                context.Podcast.Add(podcastOne);
+            }
+            await context.SaveChangesAsync();
+
+            Episode episodeOne = new Episode("TestEpisode", 4193, 1);
+            if (!context.Episodes.Any())
+            {
+                context.Episodes.Add(episodeOne);
+            }
+            await context.SaveChangesAsync();
+
+            Contributor podcasttestcontributor = new Contributor(1, null, 1);
+            context.Contributor.Add(podcasttestcontributor);
+            await context.SaveChangesAsync();
         }
     }
 }
