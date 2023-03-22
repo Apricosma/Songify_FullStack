@@ -7,6 +7,8 @@ namespace Songify_FullStack.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
         public string UserName { get; set; }
         public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
 

@@ -9,7 +9,7 @@ namespace Songify_FullStack.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Playlist name is required")]
         [StringLength(30, ErrorMessage = "Playlist name cannot be greater than 30 characters, or less than 2", MinimumLength = 2)]
         public string Name { get; set; }
 

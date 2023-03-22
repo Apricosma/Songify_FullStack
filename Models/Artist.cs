@@ -7,7 +7,8 @@ namespace Songify_FullStack.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Artist name is required")]
         [StringLength(50, ErrorMessage = "Artist name cannot be more than 50 characters or less than 1", MinimumLength = 1)]
         public string Name { get; set; }
 

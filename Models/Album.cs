@@ -8,7 +8,7 @@ namespace Songify_FullStack.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Album title is required")]
         [StringLength(100, ErrorMessage = "Song name cannot be more than 100 characters, or less than 2", MinimumLength = 2)]
         public string Title { get; set; }
 
