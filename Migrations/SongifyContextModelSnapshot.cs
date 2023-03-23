@@ -42,22 +42,29 @@ namespace Songify_FullStack.Migrations
 
             modelBuilder.Entity("Songify_FullStack.Models.Contributor", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("ArtistId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PodcastId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SongId")
                         .HasColumnType("int");
 
                     b.Property<int?>("EpisodeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int?>("PodcastId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.HasKey("ArtistId", "PodcastId", "SongId");
+                    b.Property<int?>("SongId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId");
 
                     b.HasIndex("EpisodeId");
 

@@ -12,8 +12,8 @@ using Songify_FullStack.Data;
 namespace Songify_FullStack.Migrations
 {
     [DbContext(typeof(SongifyContext))]
-    [Migration("20230322145206_RefactorInitialTest")]
-    partial class RefactorInitialTest
+    [Migration("20230323042049_Test")]
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,22 +45,29 @@ namespace Songify_FullStack.Migrations
 
             modelBuilder.Entity("Songify_FullStack.Models.Contributor", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("ArtistId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PodcastId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SongId")
                         .HasColumnType("int");
 
                     b.Property<int?>("EpisodeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int?>("PodcastId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.HasKey("ArtistId", "PodcastId", "SongId");
+                    b.Property<int?>("SongId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtistId");
 
                     b.HasIndex("EpisodeId");
 

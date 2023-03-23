@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Songify_FullStack.Migrations
 {
     /// <inheritdoc />
-    public partial class RefactorInitialTest : Migration
+    public partial class Test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -105,15 +105,16 @@ namespace Songify_FullStack.Migrations
                 name: "Contributor",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ArtistId = table.Column<int>(type: "int", nullable: false),
-                    PodcastId = table.Column<int>(type: "int", nullable: false),
-                    SongId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    PodcastId = table.Column<int>(type: "int", nullable: true),
+                    SongId = table.Column<int>(type: "int", nullable: true),
                     EpisodeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contributor", x => new { x.ArtistId, x.PodcastId, x.SongId });
+                    table.PrimaryKey("PK_Contributor", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Contributor_Artist_ArtistId",
                         column: x => x.ArtistId,
@@ -143,6 +144,11 @@ namespace Songify_FullStack.Migrations
                 name: "IX_mediaItems_PodcastId",
                 table: "mediaItems",
                 column: "PodcastId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contributor_ArtistId",
+                table: "Contributor",
+                column: "ArtistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contributor_EpisodeId",
