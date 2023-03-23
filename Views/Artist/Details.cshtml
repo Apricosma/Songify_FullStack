@@ -1,0 +1,31 @@
+﻿@model Songify_FullStack.Models.Artist
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Artist</h4>
+<h1>@Model.Name</h1>
+
+<div>
+    
+    <hr />
+        
+    <h4>Albums</h4>
+
+    <div class="list-group">
+        @foreach(Album album in Model.Contributors.Select(sc => sc.Song.Album).Distinct())
+        {
+            <a href="@Url.Action("Details", "Album", new {id = album.Id})" 
+                class="list-group-item list-group-item-action w-25 text-xl-center m-1"
+                style="height: 100px">
+
+                <h4>@album.Title</h4>
+                <p>Songs @album.Songs.Count()</p>
+            </a>
+        }   
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

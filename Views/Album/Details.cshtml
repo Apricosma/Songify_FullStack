@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Songify_FullStack.Models.Song>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.FirstOrDefault().Album.Title</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Album)
+            </th>
+            <th>
+                Artist
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @string.Format("{0:m\\:ss}", TimeSpan.FromSeconds(item.DurationSeconds))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Album.Title)
+                </td>
+                <td>
+                    @*concatenates artists together*@
+                    @{
+                        string artists = string.Join(", ", item.Contributors.Select(sc => sc.Artist.Name));
+                    }
+                    @artists
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+                <td>
+                    <form method="post" asp-controller="Album" asp-action="AddSongToPlaylist">
+                        <select name="playlistId" asp-items="ViewBag.playlists">
+                            <option selected="selected">Playlists</option>
+                        </select>
+                        <input type="hidden" name="songId" value="@item.Id">
+                        <input type="hidden" name="albumId" value="@item.Album.Id">
+                        <button class="btn btn-primary" type="submit">Add To Playlist</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

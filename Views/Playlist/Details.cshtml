@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Songify_FullStack.Models.Playlist>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int playlistDuration = 0;
+
+    foreach(var item in Model.FirstOrDefault().PlaylistSongs)
+    {
+        playlistDuration += item.Song.DurationSeconds;
+    };
+
+    string playlistTimeString = string.Format("{0}{1:D2}:{2:D2}", 
+    playlistDuration >= 3600 ? $"{playlistDuration / 3600}:" : "", 
+    (playlistDuration / 60) % 60, playlistDuration % 60);
+}
+
+<h1>@Model.FirstOrDefault().Name (@playlistTimeString)</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaylistSongs.FirstOrDefault().Song.Title)
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaylistSongs.FirstOrDefault().Song.Album)
+            </th>
+            <th>
+                <p>Artist</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FirstOrDefault().PlaylistSongs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Song.Title)
+                </td>
+                <td>
+                    @string.Format("{0:m\\:ss}", TimeSpan.FromSeconds(item.Song.DurationSeconds))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Song.Album.Title)
+                </td>
+                <td>
+                    @*concatenates artists together*@
+                    @{
+                        string artists = string.Join(", ", item.Song.Contributors.Select(sc => sc.Artist.Name));
+                    }
+                    @artists
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+                <td>
+                    <form method="post" asp-controller="Playlist" asp-action="RemoveFromPlaylist">
+                        <input type="hidden" name="songId" value="@item.Song.Id">
+                        <input type="hidden" name="playlistId" value="@item.Playlist.Id">
+                        <button class="btn-danger" type="submit">Remove from Playlist</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

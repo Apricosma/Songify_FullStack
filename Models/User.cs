@@ -1,10 +1,17 @@
-﻿namespace Songify_FullStack.Models
+﻿using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations;
+
+namespace Songify_FullStack.Models
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
         public string UserName { get; set; }
         public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public virtual ICollection<ListenerList> ListenerLists { get; set; } = new List<ListenerList>();
 
         public User(string userName)
         {

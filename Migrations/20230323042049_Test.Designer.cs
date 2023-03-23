@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Songify_FullStack.Data;
 
@@ -11,9 +12,11 @@ using Songify_FullStack.Data;
 namespace Songify_FullStack.Migrations
 {
     [DbContext(typeof(SongifyContext))]
-    partial class SongifyContextModelSnapshot : ModelSnapshot
+    [Migration("20230323042049_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artist", (string)null);
+                    b.ToTable("Artist");
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Contributor", b =>
@@ -72,7 +75,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("Contributor", (string)null);
+                    b.ToTable("Contributor");
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.LibrarySong", b =>
@@ -95,56 +98,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LibrarySong", (string)null);
-                });
-
-            modelBuilder.Entity("Songify_FullStack.Models.ListenerList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ListenerList", (string)null);
-                });
-
-            modelBuilder.Entity("Songify_FullStack.Models.ListenerListPodcasts", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ListenerListId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PodcastId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TimeAdded")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListenerListId");
-
-                    b.HasIndex("PodcastId");
-
-                    b.ToTable("ListenerListPodcasts", (string)null);
+                    b.ToTable("LibrarySong");
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.MediaItem", b =>
@@ -169,7 +123,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("mediaItems", (string)null);
+                    b.ToTable("mediaItems");
 
                     b.HasDiscriminator<string>("MediaItemType").HasValue("MediaItem");
 
@@ -195,7 +149,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("mediaTypes", (string)null);
+                    b.ToTable("mediaTypes");
 
                     b.HasDiscriminator<string>("MediaType").HasValue("MediaType");
 
@@ -222,7 +176,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlist", (string)null);
+                    b.ToTable("Playlist");
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.PlaylistSong", b =>
@@ -232,9 +186,6 @@ namespace Songify_FullStack.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ListenerListId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PlaylistId")
                         .HasColumnType("int");
@@ -247,13 +198,11 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ListenerListId");
-
                     b.HasIndex("PlaylistId");
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistSong", (string)null);
+                    b.ToTable("PlaylistSong");
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.User", b =>
@@ -270,7 +219,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Episode", b =>
@@ -364,36 +313,6 @@ namespace Songify_FullStack.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Songify_FullStack.Models.ListenerList", b =>
-                {
-                    b.HasOne("Songify_FullStack.Models.User", "User")
-                        .WithMany("ListenerLists")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Songify_FullStack.Models.ListenerListPodcasts", b =>
-                {
-                    b.HasOne("Songify_FullStack.Models.ListenerList", "ListenerList")
-                        .WithMany()
-                        .HasForeignKey("ListenerListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Songify_FullStack.Models.Podcast", "Podcast")
-                        .WithMany("ListenerListPodcasts")
-                        .HasForeignKey("PodcastId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ListenerList");
-
-                    b.Navigation("Podcast");
-                });
-
             modelBuilder.Entity("Songify_FullStack.Models.Playlist", b =>
                 {
                     b.HasOne("Songify_FullStack.Models.User", "User")
@@ -407,10 +326,6 @@ namespace Songify_FullStack.Migrations
 
             modelBuilder.Entity("Songify_FullStack.Models.PlaylistSong", b =>
                 {
-                    b.HasOne("Songify_FullStack.Models.ListenerList", null)
-                        .WithMany("ListenerListPodcasts")
-                        .HasForeignKey("ListenerListId");
-
                     b.HasOne("Songify_FullStack.Models.Playlist", "Playlist")
                         .WithMany("PlaylistSongs")
                         .HasForeignKey("PlaylistId")
@@ -455,11 +370,6 @@ namespace Songify_FullStack.Migrations
                     b.Navigation("Contributors");
                 });
 
-            modelBuilder.Entity("Songify_FullStack.Models.ListenerList", b =>
-                {
-                    b.Navigation("ListenerListPodcasts");
-                });
-
             modelBuilder.Entity("Songify_FullStack.Models.Playlist", b =>
                 {
                     b.Navigation("PlaylistSongs");
@@ -467,8 +377,6 @@ namespace Songify_FullStack.Migrations
 
             modelBuilder.Entity("Songify_FullStack.Models.User", b =>
                 {
-                    b.Navigation("ListenerLists");
-
                     b.Navigation("Playlists");
                 });
 
@@ -494,8 +402,6 @@ namespace Songify_FullStack.Migrations
                     b.Navigation("Contributions");
 
                     b.Navigation("Episodes");
-
-                    b.Navigation("ListenerListPodcasts");
                 });
 #pragma warning restore 612, 618
         }

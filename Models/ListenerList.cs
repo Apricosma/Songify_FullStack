@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Songify_FullStack.Models
 {
-    public class Playlist
+    public class ListenerList
     {
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Playlist name is required")]
+        [Required(ErrorMessage = "Listenerlist name is required")]
         [StringLength(30, ErrorMessage = "Playlist name cannot be greater than 30 characters, or less than 2", MinimumLength = 2)]
         public string Name { get; set; }
 
@@ -17,15 +16,15 @@ namespace Songify_FullStack.Models
         [ForeignKey("Id")]
         public int UserId { get; set; }
 
-        public ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
+        public ICollection<PlaylistSong> ListenerListPodcasts { get; set; } = new List<PlaylistSong>();
         public User? User { get; set; }
 
-        public Playlist()
+        public ListenerList()
         {
 
         }
 
-        public Playlist(string name, int userId)
+        public ListenerList(string name, int userId)
         {
             Name = name;
             UserId = userId;

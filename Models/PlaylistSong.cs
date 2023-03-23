@@ -10,6 +10,11 @@
         public virtual Playlist Playlist { get; set; }
         public virtual Song Song { get; set; }
 
+        public PlaylistSong()
+        {
+
+        }
+
         public PlaylistSong(int songId, int playlistId)
         {
             SongId = songId;
