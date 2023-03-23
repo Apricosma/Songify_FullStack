@@ -44,6 +44,10 @@ namespace Songify_FullStack.Models
                 new Artist("hanahata"),
                 new Artist("Figgie"),
                 new Artist("Geoxor"),
+                new Artist("Jonathan Crow"),
+                new Artist("rexxer"),
+                new Artist("Butt0nmash"),
+                new Artist("KazuyaMishima4life")
             };
 
             if (!context.Artist.Any())
@@ -195,16 +199,7 @@ namespace Songify_FullStack.Models
                 return AllSongContibutors;
             }
 
-            if (!context.Contributor.Any())
-            {
-                List<Contributor> list = InitializeSongContributors();
-                foreach (Contributor songContributor in list)
-                {
-                    context.Add(songContributor);
-                }
-
-            }
-            await context.SaveChangesAsync();
+            
             PlaylistSong[] PlaylistSongs = new PlaylistSong[]
             {
                 new PlaylistSong(1, 1),
@@ -236,7 +231,7 @@ namespace Songify_FullStack.Models
 
             if (!context.PlaylistSong.Any())
             {
-                foreach(PlaylistSong playlistSong in PlaylistSongs) 
+                foreach (PlaylistSong playlistSong in PlaylistSongs)
                 {
                     context.Add(playlistSong);
                 }
@@ -250,22 +245,99 @@ namespace Songify_FullStack.Models
             }
             await context.SaveChangesAsync();
 
-            Podcast podcastOne = new Podcast("Testpodcast");
+            Podcast[] Podcasts = new Podcast[]
+            {
+                new Podcast("Bird Enjoyers Podcast"),
+                new Podcast("Gamernation"),
+                new Podcast("Combo Breakers"),
+                new Podcast("Mishima Mayhem"),
+            };
+
             if (!context.Podcast.Any())
             {
-                context.Podcast.Add(podcastOne);
+                foreach (Podcast podcast in Podcasts)
+                {
+                    context.Podcast.Add(podcast);
+                }
             }
             await context.SaveChangesAsync();
 
-            Episode episodeOne = new Episode("TestEpisode", 4193, 1);
+            Episode[] Episodes = new Episode[]
+            {
+                new Episode("Bird Enjoyers #1: Crazy Crow Chronicles", 4193, 1),
+                new Episode("Bird Enjoyers #2: Robin Roundtable", 3841, 1),
+                new Episode("Bird Enjoyers #3: Starling Shenanigans", 2813, 1),
+
+                new Episode("Gamernation 1 - Why Is Every Game A 'Soulslike' Now?", 3391, 2),
+
+                new Episode("Combo Breakers 1 | Street Fighter w/ Special Guest Justin Wong", 3841, 3),
+                new Episode("Combo Breakers 2 | Guilty Gear Special", 3544, 3),
+
+                new Episode("Mishima Mayhem 1: Do You Actually Need To Wavedash To Walmart? (Yes)", 4321, 4)
+
+            };
             if (!context.Episodes.Any())
             {
-                context.Episodes.Add(episodeOne);
+                foreach(Episode episode in Episodes)
+                {
+                    context.Episodes.Add(episode);
+                }
             }
             await context.SaveChangesAsync();
 
-            Contributor podcasttestcontributor = new Contributor(1, null, 1);
-            context.Contributor.Add(podcasttestcontributor);
+            Contributor[] podcastContributors = new Contributor[]
+            {
+                new Contributor(5, null, 1),
+                new Contributor(6, null, 2),
+                new Contributor(7, null, 3),
+                new Contributor(8, null, 4),
+            };
+            if (!context.Contributor.Any())
+            {
+                foreach (Contributor contributor in podcastContributors)
+                {
+                    context.Contributor.Add(contributor);
+                }
+
+                List<Contributor> list = InitializeSongContributors();
+                foreach (Contributor songContributor in list)
+                {
+                    context.Add(songContributor);
+                }
+            }
+            await context.SaveChangesAsync();
+
+            ListenerList[] listenerLists = new ListenerList[]
+            {
+                new ListenerList("Gaming podcasts", 1),
+                new ListenerList("All podcasts", 1)
+            };
+            if (!context.ListenerList.Any())
+            {
+                foreach (ListenerList listenerList in listenerLists)
+                {
+                    context.ListenerList.Add(listenerList);
+                }
+            }
+            await context.SaveChangesAsync();
+
+            ListenerListPodcasts[] listenerListPodcasts = new ListenerListPodcasts[]
+            {
+                new ListenerListPodcasts(2, 1),
+                new ListenerListPodcasts(3, 1),
+                new ListenerListPodcasts(4, 1),
+                new ListenerListPodcasts(1, 2),
+                new ListenerListPodcasts(2, 2),
+                new ListenerListPodcasts(3, 2),
+                new ListenerListPodcasts(4, 2),
+            };
+            if (!context.ListenerListPodcasts.Any())
+            {
+                foreach(ListenerListPodcasts llp in listenerListPodcasts)
+                {
+                    context.ListenerListPodcasts.Add(llp);
+                }
+            }
             await context.SaveChangesAsync();
         }
     }

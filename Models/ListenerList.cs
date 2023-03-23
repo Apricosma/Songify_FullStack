@@ -5,20 +5,6 @@ namespace Songify_FullStack.Models
 {
     public class ListenerList
     {
-        //public ICollection<ListenerListPodcasts> ListenerListPodcasts { get; set; } = new List<ListenerListPodcasts>();
-
-        //public User? User { get; set; }
-
-        //public ListenerList()
-        //{
-
-        //}
-
-        //public ListenerList(string name, int userId) : base(name, userId) 
-        //{
-        //    Name = name;
-        //    UserId = userId;
-        //}
         [Key]
         public int Id { get; set; }
 

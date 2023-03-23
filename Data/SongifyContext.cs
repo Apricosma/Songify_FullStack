@@ -51,11 +51,6 @@ namespace Songify_FullStack.Data
                 .HasOne(sc => sc.Song)
                 .WithMany(s => s.Contributors)
                 .HasForeignKey(sc => sc.SongId);
-
-            //modelBuilder.Entity<ListenerListPodcasts>()
-            //    .HasOne(lp => lp.Podcast)
-            //    .WithMany(p => p.ListenerListPodcasts)
-            //    .HasForeignKey(lp => lp.);
         }
 
 
