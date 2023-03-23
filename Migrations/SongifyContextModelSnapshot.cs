@@ -37,7 +37,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artist");
+                    b.ToTable("Artist", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Contributor", b =>
@@ -72,7 +72,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("Contributor");
+                    b.ToTable("Contributor", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.LibrarySong", b =>
@@ -95,7 +95,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LibrarySong");
+                    b.ToTable("LibrarySong", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.ListenerList", b =>
@@ -118,7 +118,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ListenerList");
+                    b.ToTable("ListenerList", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.ListenerListPodcasts", b =>
@@ -144,7 +144,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("PodcastId");
 
-                    b.ToTable("ListenerListPodcasts");
+                    b.ToTable("ListenerListPodcasts", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.MediaItem", b =>
@@ -169,7 +169,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("mediaItems");
+                    b.ToTable("mediaItems", (string)null);
 
                     b.HasDiscriminator<string>("MediaItemType").HasValue("MediaItem");
 
@@ -195,7 +195,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("mediaTypes");
+                    b.ToTable("mediaTypes", (string)null);
 
                     b.HasDiscriminator<string>("MediaType").HasValue("MediaType");
 
@@ -222,7 +222,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlist");
+                    b.ToTable("Playlist", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.PlaylistSong", b =>
@@ -253,7 +253,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistSong");
+                    b.ToTable("PlaylistSong", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.User", b =>
@@ -270,7 +270,7 @@ namespace Songify_FullStack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Songify_FullStack.Models.Episode", b =>

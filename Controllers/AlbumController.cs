@@ -28,7 +28,14 @@ namespace Songify_FullStack.Controllers
                 .ThenInclude(a => a.Artist)
                 .ToListAsync();
 
-            return View(albums);
+            var test = await _context.mediaTypes
+                .OfType<Album>()
+                .Include(s => s.Songs)
+                .ThenInclude(sc => sc.Contributors)
+                .ThenInclude(a => a.Artist)
+                .ToListAsync();
+
+            return View(test);
         }
 
         [HttpPost]
@@ -75,10 +82,10 @@ namespace Songify_FullStack.Controllers
             }
 
             var albumDetailContext = _context.Song
-            .Include(s => s.Album)
-            .Include(s => s.Contributors)
-            .ThenInclude(s => s.Artist)
-            .Where(a => a.Album.Id == id);
+                .Include(s => s.Album)
+                .Include(s => s.Contributors)
+                .ThenInclude(s => s.Artist)
+                .Where(a => a.Album.Id == id);
 
             var playlists = await _context.Playlist.ToListAsync();
             ViewBag.Playlists = new SelectList(playlists, "Id", "Name");
