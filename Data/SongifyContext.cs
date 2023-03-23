@@ -27,9 +27,6 @@ namespace Songify_FullStack.Data
                 .HasValue<Song>("Song")
                 .HasValue<Episode>("Episode");
 
-            //modelBuilder.Entity<Contributor>()
-            //    .HasKey(sc => new { sc.ArtistId, sc.PodcastId, sc.SongId });
-
             modelBuilder.Entity<Contributor>()
                 .HasOne(sc => sc.Artist)
                 .WithMany(a => a.Contributors)
