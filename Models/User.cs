@@ -11,6 +11,7 @@ namespace Songify_FullStack.Models
         [System.ComponentModel.DataAnnotations.Required]
         public string UserName { get; set; }
         public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public virtual ICollection<ListenerList> ListenerLists { get; set; } = new List<ListenerList>();
 
         public User(string userName)
         {

@@ -10,13 +10,23 @@ namespace Songify_FullStack.Data
 {
     public class SongifyContext : DbContext
     {
-        public SongifyContext (DbContextOptions<SongifyContext> options)
+        public SongifyContext(DbContextOptions<SongifyContext> options)
             : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Playlist>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Playlists)
+                .HasForeignKey(p => p.UserId);
+
+            modelBuilder.Entity<ListenerList>()
+                .HasOne(ll => ll.User)
+                .WithMany(u => u.ListenerLists)
+                .HasForeignKey(ll => ll.UserId);
+
             modelBuilder.Entity<MediaType>()
                 .HasDiscriminator<string>("MediaType")
                 .HasValue<Album>("Album")
@@ -41,13 +51,18 @@ namespace Songify_FullStack.Data
                 .HasOne(sc => sc.Song)
                 .WithMany(s => s.Contributors)
                 .HasForeignKey(sc => sc.SongId);
+
+            //modelBuilder.Entity<ListenerListPodcasts>()
+            //    .HasOne(lp => lp.Podcast)
+            //    .WithMany(p => p.ListenerListPodcasts)
+            //    .HasForeignKey(lp => lp.);
         }
 
 
         public DbSet<Song> Song { get; set; } = default!;
         public DbSet<Artist> Artist { get; set; } = default!;
         public DbSet<LibrarySong> LibrarySong { get; set; } = default!;
-        public DbSet<Contributor> Contributor { get; set;} = default!;
+        public DbSet<Contributor> Contributor { get; set; } = default!;
         public DbSet<User> User { get; set; } = default!;
         public DbSet<Album> Album { get; set; } = default!;
         public DbSet<Playlist> Playlist { get; set; } = default!;
@@ -56,5 +71,7 @@ namespace Songify_FullStack.Data
         public DbSet<MediaItem> mediaItems { get; set; } = default!;
         public DbSet<Podcast> Podcast { get; set; } = default!;
         public DbSet<Episode> Episodes { get; set; } = default!;
+        public DbSet<ListenerList> ListenerList { get; set; } = default!;
+        public DbSet<ListenerListPodcasts> ListenerListPodcasts { get; set; } = default!;
     }
 }
